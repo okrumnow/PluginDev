@@ -1,5 +1,8 @@
 package de.jebc.tutorial.visibility.assist;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -21,7 +24,19 @@ public class VisibilityAssist implements IQuickAssistProcessor {
 		ASTNode coveringNode = context.getCoveringNode();
 		MethodDeclaration declaration = findDeclaration(coveringNode);
 		if (declaration == null) return null;
-		return new IJavaCompletionProposal[] {};
+		IJavaCompletionProposal[] result = getProposals(declaration);
+		return result;
+	}
+
+	private IJavaCompletionProposal[] getProposals(MethodDeclaration declaration) {
+		List<IJavaCompletionProposal> result = new ArrayList<IJavaCompletionProposal>();
+		int currentModifier = getModifier(declaration);
+		result.add(new ChangeVisibilityToPublicProposal(declaration));
+		return result.toArray(new IJavaCompletionProposal[0]);
+	}
+
+	private int getModifier(MethodDeclaration declaration) {
+		return declaration.getModifiers();
 	}
 
 	private MethodDeclaration findDeclaration(ASTNode coveringNode) {

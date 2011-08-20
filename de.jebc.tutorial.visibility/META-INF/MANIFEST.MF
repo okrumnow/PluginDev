@@ -4,7 +4,8 @@ Bundle-Name: Visibility
 Bundle-SymbolicName: de.jebc.tutorial.visibility;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.jdt;bundle-version="3.7.0",
- org.eclipse.jdt.ui,
- org.eclipse.core.runtime;bundle-version="3.7.0"
+Require-Bundle: org.eclipse.jdt.ui,
+ org.eclipse.core.runtime;bundle-version="3.7.0",
+ org.eclipse.jface.text;bundle-version="3.7.0",
+ org.eclipse.swt;bundle-version="3.7.0"
 Import-Package: org.eclipse.jdt.core.dom

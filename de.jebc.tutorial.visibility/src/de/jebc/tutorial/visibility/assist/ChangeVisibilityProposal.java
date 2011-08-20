@@ -1,26 +1,60 @@
 package de.jebc.tutorial.visibility.assist;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
+import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
+import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
+import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
+import org.eclipse.jdt.internal.corext.dom.ModifierRewrite;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
+import org.eclipse.jdt.ui.text.java.IInvocationContext;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
+import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.text.edits.MalformedTreeException;
+import org.eclipse.text.edits.TextEdit;
 
 @SuppressWarnings("restriction")
 public abstract class ChangeVisibilityProposal implements IJavaCompletionProposal {
 
-	private final String newVisibility;
+	private final int newVisibility;
 	private final String description;
+	private final IInvocationContext context;
+	private final MethodDeclaration declaration;
+	private ASTRewrite rewriter;
 
-	public ChangeVisibilityProposal(String description, String newVisibility, MethodDeclaration declaration) {
+	public ChangeVisibilityProposal(String description, int newVisibility, MethodDeclaration declaration, IInvocationContext context) {
 		this.description = description;
 		this.newVisibility = newVisibility;
+		this.declaration = declaration;
+		this.context = context;
+		setModifier();
 	}
 
 	@Override
 	public void apply(IDocument document) {
+		
+		TextEdit textEdits = rewriter.rewriteAST(document, null);
+		try {
+			textEdits.apply(document);
+		} catch (MalformedTreeException e) {
+			e.printStackTrace();
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void setModifier() {
+		rewriter = ASTRewrite.create(declaration.getAST());
+		ModifierRewrite modrewrite = ModifierRewrite.create(rewriter, declaration);
+		modrewrite.setVisibility(newVisibility, null);
 	}
 
 	@Override

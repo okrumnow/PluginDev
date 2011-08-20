@@ -24,14 +24,14 @@ public class VisibilityAssist implements IQuickAssistProcessor {
 		ASTNode coveringNode = context.getCoveringNode();
 		MethodDeclaration declaration = findDeclaration(coveringNode);
 		if (declaration == null) return null;
-		IJavaCompletionProposal[] result = getProposals(declaration);
+		IJavaCompletionProposal[] result = getProposals(declaration, context);
 		return result;
 	}
 
-	private IJavaCompletionProposal[] getProposals(MethodDeclaration declaration) {
+	private IJavaCompletionProposal[] getProposals(MethodDeclaration declaration, IInvocationContext context) {
 		List<IJavaCompletionProposal> result = new ArrayList<IJavaCompletionProposal>();
 		int currentModifier = getModifier(declaration);
-		result.add(new ChangeVisibilityToPublicProposal(declaration));
+		result.add(new ChangeVisibilityToPublicProposal(declaration, context));
 		return result.toArray(new IJavaCompletionProposal[0]);
 	}
 

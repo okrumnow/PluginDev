@@ -8,6 +8,7 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 
+@SuppressWarnings("restriction")
 public abstract class ChangeVisibilityProposal implements IJavaCompletionProposal {
 
 	private final String newVisibility;
@@ -47,7 +48,6 @@ public abstract class ChangeVisibilityProposal implements IJavaCompletionProposa
 		return null;
 	}
 
-	@SuppressWarnings("restriction")
 	@Override
 	public Image getImage() {
 		return JavaPluginImages.get(JavaPluginImages.IMG_CORRECTION_CHANGE);

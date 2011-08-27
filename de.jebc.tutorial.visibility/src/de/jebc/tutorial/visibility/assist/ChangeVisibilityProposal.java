@@ -1,17 +1,9 @@
 package de.jebc.tutorial.visibility.assist;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.Modifier;
-import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jdt.internal.corext.dom.ModifierRewrite;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
-import org.eclipse.jdt.ui.text.java.IInvocationContext;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposal;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
@@ -26,15 +18,13 @@ public abstract class ChangeVisibilityProposal implements IJavaCompletionProposa
 
 	private final int newVisibility;
 	private final String description;
-	private final IInvocationContext context;
 	private final MethodDeclaration declaration;
 	private ASTRewrite rewriter;
 
-	public ChangeVisibilityProposal(String description, int newVisibility, MethodDeclaration declaration, IInvocationContext context) {
+	public ChangeVisibilityProposal(String description, int newVisibility, MethodDeclaration declaration) {
 		this.description = description;
 		this.newVisibility = newVisibility;
 		this.declaration = declaration;
-		this.context = context;
 		setModifier();
 	}
 

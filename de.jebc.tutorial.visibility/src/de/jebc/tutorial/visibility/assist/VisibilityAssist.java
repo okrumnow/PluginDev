@@ -1,5 +1,6 @@
 package de.jebc.tutorial.visibility.assist;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +25,17 @@ public class VisibilityAssist implements IQuickAssistProcessor {
 		ASTNode coveringNode = context.getCoveringNode();
 		MethodDeclaration declaration = findDeclaration(coveringNode);
 		if (declaration == null) return null;
-		IJavaCompletionProposal[] result = getProposals(declaration, context);
+		IJavaCompletionProposal[] result = getProposals(declaration);
 		return result;
 	}
 
-	private IJavaCompletionProposal[] getProposals(MethodDeclaration declaration, IInvocationContext context) {
+	private IJavaCompletionProposal[] getProposals(MethodDeclaration declaration) {
 		List<IJavaCompletionProposal> result = new ArrayList<IJavaCompletionProposal>();
 		int currentModifier = getModifier(declaration);
-		result.add(new ChangeVisibilityToPublicProposal(declaration, context));
+		if (!Modifier.isPublic(currentModifier)) result.add(new ChangeVisibilityToPublicProposal(declaration));
+		if (!Modifier.isProtected(currentModifier)) result.add(new ChangeVisibilityToProtectedProposal(declaration));
+		if (!Modifier.isPrivate(currentModifier)) result.add(new ChangeVisibilityToPrivateProposal(declaration));
+		if (result.size() < 3) result.add(new ChangeVisibilityToDefaultProposal(declaration));
 		return result.toArray(new IJavaCompletionProposal[0]);
 	}
 

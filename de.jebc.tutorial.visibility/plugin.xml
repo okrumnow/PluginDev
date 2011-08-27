@@ -9,5 +9,27 @@
             name="Change Visibility">
       </quickAssistProcessor>
    </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="de.jebc.tutorial.visibility.contribution1"
+            objectClass="org.eclipse.jdt.core.IMethod">
+         <menu
+               id="de.jebc.tutorial.visibility.menu1"
+               label="Change visibility"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="de.jebc.tutorial.visibility.popup.actions.MakeMethodPublicAction"
+               enablesFor="1"
+               id="de.jebc.tutorial.visibility.newAction"
+               label="Make public"
+               menubarPath="de.jebc.tutorial.visibility.menu1/group1">
+         </action>
+      </objectContribution>
+   </extension>
 
 </plugin>

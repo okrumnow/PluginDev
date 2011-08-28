@@ -82,10 +82,8 @@ public class MakeMethodPublicAction implements IObjectActionDelegate {
 			}
 			cu.commitWorkingCopy(false, null);
 		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -102,14 +100,6 @@ public class MakeMethodPublicAction implements IObjectActionDelegate {
 				e.printStackTrace();
 			}
 		} else action.setEnabled(false);
-	}
-
-	private static CompilationUnit parse(ICompilationUnit unit) {
-		ASTParser parser = ASTParser.newParser(AST.JLS3);
-		parser.setKind(ASTParser.K_COMPILATION_UNIT);
-		parser.setSource(unit);
-		parser.setResolveBindings(true);
-		return (CompilationUnit) parser.createAST(null); // parse
 	}
 
 }

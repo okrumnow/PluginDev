@@ -4,28 +4,28 @@ import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.compiler.ITerminalSymbols;
 import org.eclipse.ui.IObjectActionDelegate;
 
-public class MakeMethodPublicAction extends ChangeVisibilityAction implements IObjectActionDelegate {
+public class MakeMethodPrivateAction extends ChangeVisibilityAction implements IObjectActionDelegate {
 
 	/**
 	 * Constructor for Action1.
 	 */
-	public MakeMethodPublicAction() {
+	public MakeMethodPrivateAction() {
 		super();
 	}
 
 	@Override
 	protected String getNewToken() {
-		return "public";
+		return "private";
 	}
 
 	@Override
 	protected boolean isTokenToReplace(int token) {
-		return token == ITerminalSymbols.TokenNameprivate;
+		return token == ITerminalSymbols.TokenNameprotected || token == ITerminalSymbols.TokenNamepublic;
 	}
 
 	@Override
 	protected int getDisableMask() {
-		return Flags.AccPublic;
+		return Flags.AccPrivate;
 	}
 
 }

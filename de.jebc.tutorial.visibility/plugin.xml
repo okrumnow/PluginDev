@@ -23,6 +23,20 @@
             </separator>
          </menu>
          <action
+               class="de.jebc.tutorial.visibility.popup.actions.MakeMethodPrivateAction"
+               enablesFor="1"
+               id="de.jebc.tutorial.visibility.newAction"
+               label="Make private"
+               menubarPath="de.jebc.tutorial.visibility.menu1/group1">
+         </action>
+         <action
+               class="de.jebc.tutorial.visibility.popup.actions.MakeMethodProtectedAction"
+               enablesFor="1"
+               id="de.jebc.tutorial.visibility.newAction"
+               label="Make protected"
+               menubarPath="de.jebc.tutorial.visibility.menu1/group1">
+         </action>
+         <action
                class="de.jebc.tutorial.visibility.popup.actions.MakeMethodPublicAction"
                enablesFor="1"
                id="de.jebc.tutorial.visibility.newAction"

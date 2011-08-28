@@ -1,6 +1,5 @@
 package de.jebc.tutorial.visibility.popup.actions;
 
-import org.eclipse.jdt.core.ILocalVariable;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
@@ -28,36 +27,49 @@ public class MethodVisitor extends ASTVisitor {
 	}
 
 	private boolean isMatchingDeclaration(MethodDeclaration node) {
-		String identifier = node.getName().getIdentifier();
-		String elementName = member.getElementName();
 		boolean result = false;
 		try {
-			if (identifier.equals(elementName)) {
+			if (areNamesIdentical(node)) {
 				if (member instanceof SourceMethod) {
 					SourceMethod method = (SourceMethod) member;
-					if (node.parameters().size() == method
-							.getNumberOfParameters()) {
-						ILocalVariable[] methodParameres = method
-								.getParameters();
-						result = true;
-						for (int i = 0; i < method.getNumberOfParameters(); i++) {
-							SingleVariableDeclaration p = (SingleVariableDeclaration) node.parameters().get(i);
-							ILocalVariable lv = methodParameres[i];
-							String methodParameterType = Signature.toString(lv.getTypeSignature());
-							String nodeParameterType = p.getType().toString();
-							if (!methodParameterType.equals(nodeParameterType)) {
-								result = false;
-								break;
-							}
-						}
+					if (isParameterCountIdentical(node, method)) {
+						result = areParameterTypesIdentical(node, method);
 					}
 				}
 			}
 		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	private boolean areParameterTypesIdentical(MethodDeclaration node,
+			SourceMethod method) throws JavaModelException {
+		boolean result = true;
+		for (int i = 0; i < method.getNumberOfParameters(); i++) {
+			if (!parameterTypeIsIdentical(node, method, i)) {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+
+	private boolean parameterTypeIsIdentical(MethodDeclaration node,
+			SourceMethod method, int i) throws JavaModelException {
+		String typeSignature = method.getParameters()[i].getTypeSignature();
+		String nodeSignature = ((SingleVariableDeclaration) node.parameters()
+				.get(i)).getType().toString();
+		return Signature.toString(typeSignature).equals(nodeSignature);
+	}
+
+	private boolean isParameterCountIdentical(MethodDeclaration node,
+			SourceMethod method) {
+		return node.parameters().size() == method.getNumberOfParameters();
+	}
+
+	private boolean areNamesIdentical(MethodDeclaration node) {
+		return node.getName().getIdentifier().equals(member.getElementName());
 	}
 
 	public MethodDeclaration getMethod() {

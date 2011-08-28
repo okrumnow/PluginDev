@@ -1,7 +1,8 @@
 package de.jebc.tutorial.visibility.popup.actions;
 
+import java.lang.reflect.Modifier;
+
 import org.eclipse.jdt.core.Flags;
-import org.eclipse.jdt.core.compiler.ITerminalSymbols;
 import org.eclipse.ui.IObjectActionDelegate;
 
 public class MakeMethodPrivateAction extends ChangeVisibilityAction implements IObjectActionDelegate {
@@ -14,13 +15,8 @@ public class MakeMethodPrivateAction extends ChangeVisibilityAction implements I
 	}
 
 	@Override
-	protected String getNewToken() {
-		return "private";
-	}
-
-	@Override
-	protected boolean isTokenToReplace(int token) {
-		return token == ITerminalSymbols.TokenNameprotected || token == ITerminalSymbols.TokenNamepublic;
+	protected int getNewModifier() {
+		return Modifier.PRIVATE;
 	}
 
 	@Override

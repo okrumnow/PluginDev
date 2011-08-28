@@ -1,6 +1,5 @@
 package de.jebc.tutorial.visibility.popup.actions;
 
-import org.eclipse.jdt.core.compiler.ITerminalSymbols;
 import org.eclipse.ui.IObjectActionDelegate;
 
 public class MakeMethodDefaultAction extends ChangeVisibilityAction implements
@@ -14,13 +13,8 @@ public class MakeMethodDefaultAction extends ChangeVisibilityAction implements
 	}
 
 	@Override
-	protected String getNewToken() {
-		return "";
-	}
-
-	@Override
-	protected boolean isTokenToReplace(int token) {
-		return token == ITerminalSymbols.TokenNameprivate || token == ITerminalSymbols.TokenNamepublic || token == ITerminalSymbols.TokenNameprotected;
+	protected int getNewModifier() {
+		return 0;
 	}
 
 	@Override

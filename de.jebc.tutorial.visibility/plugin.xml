@@ -17,7 +17,7 @@
          <menu
                id="de.jebc.tutorial.visibility.menu1"
                label="Change visibility"
-               path="additions">
+               path="group.reorganize">
             <separator
                   name="group1">
             </separator>

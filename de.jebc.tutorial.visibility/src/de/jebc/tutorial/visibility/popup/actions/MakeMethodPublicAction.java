@@ -2,6 +2,7 @@ package de.jebc.tutorial.visibility.popup.actions;
 
 import java.lang.reflect.Modifier;
 
+import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IMember;
@@ -94,6 +95,13 @@ public class MakeMethodPublicAction implements IObjectActionDelegate {
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 		member = (IMember) ((IStructuredSelection) selection).getFirstElement();
+		if (member != null) {
+			try {
+				action.setEnabled((member.getFlags() & Flags.AccPublic) == 0);
+			} catch (JavaModelException e) {
+				e.printStackTrace();
+			}
+		} else action.setEnabled(false);
 	}
 
 	private static CompilationUnit parse(ICompilationUnit unit) {

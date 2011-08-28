@@ -5,7 +5,12 @@ import java.lang.reflect.Modifier;
 import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IMember;
+import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.ToolFactory;
+import org.eclipse.jdt.core.compiler.IScanner;
+import org.eclipse.jdt.core.compiler.ITerminalSymbols;
+import org.eclipse.jdt.core.compiler.InvalidInputException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -53,26 +58,33 @@ public class MakeMethodPublicAction implements IObjectActionDelegate {
 		try {
 			cu.becomeWorkingCopy(null);
 			IBuffer buffer = cu.getBuffer();
-			IDocument document = buffer instanceof IDocument ? (IDocument) buffer : new DocumentAdapter(buffer);
-			
-			CompilationUnit parser = parse(cu);
-			MethodVisitor visitor = new MethodVisitor(member);
-			parser.accept(visitor);
-			MethodDeclaration declaration = visitor.getMethod();
-			
-			ASTRewrite rewriter = ASTRewrite.create(parser.getAST());
-			ModifierRewrite modrewrite = ModifierRewrite.create(rewriter, declaration);
-			modrewrite.setVisibility(Modifier.PUBLIC, null);
-			TextEdit textEdits = rewriter.rewriteAST(document, null);
-			try {
-				textEdits.apply(document);
-			} catch (MalformedTreeException e) {
-				e.printStackTrace();
-			} catch (BadLocationException e) {
-				e.printStackTrace();
+			IScanner scanner = ToolFactory.createScanner(false, false, false,
+					false);
+			scanner.setSource(buffer.getCharacters());
+			ISourceRange sr = member.getSourceRange();
+			scanner.resetTo(sr.getOffset(), sr.getOffset() + sr.getLength() - 1);
+
+			int token = scanner.getNextToken();
+			while (token != ITerminalSymbols.TokenNameEOF
+					&& token != ITerminalSymbols.TokenNameLPAREN) {
+				if (token == ITerminalSymbols.TokenNameprivate) {
+					int currentTokenStartPosition = scanner.getCurrentTokenStartPosition();
+					int currentTokenEndPosition = scanner.getCurrentTokenEndPosition();
+					buffer.replace(
+							currentTokenStartPosition,
+							currentTokenEndPosition
+									- currentTokenStartPosition+1,
+							"public");
+					break;
+				}
+				token = scanner.getNextToken();
 			}
 			cu.commitWorkingCopy(false, null);
 		} catch (JavaModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidInputException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -81,10 +93,9 @@ public class MakeMethodPublicAction implements IObjectActionDelegate {
 	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
-		member = (IMember) ((IStructuredSelection) selection)
-				.getFirstElement();
+		member = (IMember) ((IStructuredSelection) selection).getFirstElement();
 	}
-	
+
 	private static CompilationUnit parse(ICompilationUnit unit) {
 		ASTParser parser = ASTParser.newParser(AST.JLS3);
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);

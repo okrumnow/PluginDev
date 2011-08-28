@@ -43,6 +43,13 @@
                label="Make public"
                menubarPath="de.jebc.tutorial.visibility.menu1/group1">
          </action>
+         <action
+               class="de.jebc.tutorial.visibility.popup.actions.MakeMethodDefaultAction"
+               enablesFor="1"
+               id="de.jebc.tutorial.visibility.newAction"
+               label="Make (default)"
+               menubarPath="de.jebc.tutorial.visibility.menu1/group1">
+         </action>
       </objectContribution>
    </extension>
 

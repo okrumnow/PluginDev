@@ -51,6 +51,7 @@ public abstract class ChangeVisibilityAction {
 			scanner.resetTo(sr.getOffset(), sr.getOffset() + sr.getLength() - 1);
 	
 			int token = scanner.getNextToken();
+			boolean isDefault = true;
 			while (token != ITerminalSymbols.TokenNameEOF
 					&& token != ITerminalSymbols.TokenNameLPAREN) {
 				if (isTokenToReplace(token)) {
@@ -61,9 +62,13 @@ public abstract class ChangeVisibilityAction {
 							currentTokenEndPosition
 									- currentTokenStartPosition+1,
 							getNewToken());
+					isDefault = false;
 					break;
 				}
 				token = scanner.getNextToken();
+			}
+			if (isDefault) {
+				buffer.replace(sr.getOffset(),0, getNewToken() + " ");
 			}
 			cu.commitWorkingCopy(false, null);
 		} catch (JavaModelException e) {

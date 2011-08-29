@@ -1,4 +1,4 @@
-package de.jebc.tutorial.visibility.popup.actions;
+package com.github.okrumnow.visibility.popup.actions;
 
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.JavaModelException;

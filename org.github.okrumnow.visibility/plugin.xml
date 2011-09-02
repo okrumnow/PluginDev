@@ -25,6 +25,7 @@
          <action
                class="org.github.okrumnow.visibility.popup.actions.MakeMethodPrivateAction"
                enablesFor="1"
+               icon="icons/private_co.gif"
                id="org.github.okrumnow.visibility.newAction"
                label="Make private"
                menubarPath="org.github.okrumnow.visibility.menu1/group1">
@@ -32,6 +33,7 @@
          <action
                class="org.github.okrumnow.visibility.popup.actions.MakeMethodProtectedAction"
                enablesFor="1"
+               icon="icons/protected_co.gif"
                id="org.github.okrumnow.visibility.newAction"
                label="Make protected"
                menubarPath="org.github.okrumnow.visibility.menu1/group1">
@@ -39,6 +41,7 @@
          <action
                class="org.github.okrumnow.visibility.popup.actions.MakeMethodPublicAction"
                enablesFor="1"
+               icon="icons/public_co.gif"
                id="org.github.okrumnow.visibility.newAction"
                label="Make public"
                menubarPath="org.github.okrumnow.visibility.menu1/group1">
@@ -46,6 +49,7 @@
          <action
                class="org.github.okrumnow.visibility.popup.actions.MakeMethodDefaultAction"
                enablesFor="1"
+               icon="icons/default_co.gif"
                id="org.github.okrumnow.visibility.newAction"
                label="Make (default)"
                menubarPath="org.github.okrumnow.visibility.menu1/group1">

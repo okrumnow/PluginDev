@@ -1,4 +1,4 @@
-package com.github.okrumnow.visibility.assist;
+package org.github.okrumnow.visibility.assist;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;

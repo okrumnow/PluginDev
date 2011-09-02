@@ -1,4 +1,4 @@
-package com.github.okrumnow.visibility.assist;
+package org.github.okrumnow.visibility.assist;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;

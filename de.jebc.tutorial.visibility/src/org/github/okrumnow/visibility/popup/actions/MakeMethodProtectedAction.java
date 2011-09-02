@@ -1,4 +1,4 @@
-package com.github.okrumnow.visibility.popup.actions;
+package org.github.okrumnow.visibility.popup.actions;
 
 import java.lang.reflect.Modifier;
 

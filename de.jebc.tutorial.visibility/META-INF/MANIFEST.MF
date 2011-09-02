@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Visibility
-Bundle-SymbolicName: com.github.okrumnow.visibility;singleton:=true
+Bundle-SymbolicName: org.github.okrumnow.visibility;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.jdt.ui,

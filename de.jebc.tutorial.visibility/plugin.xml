@@ -4,18 +4,18 @@
    <extension
          point="org.eclipse.jdt.ui.quickAssistProcessors">
       <quickAssistProcessor
-            class="com.github.okrumnow.visibility.assist.VisibilityAssist"
-            id="com.github.okrumnow.visibility.visibilityQuickAssist"
+            class="org.github.okrumnow.visibility.assist.VisibilityAssist"
+            id="org.github.okrumnow.visibility.visibilityQuickAssist"
             name="Change Visibility">
       </quickAssistProcessor>
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            id="com.github.okrumnow.visibility.contribution1"
+            id="org.github.okrumnow.visibility.contribution1"
             objectClass="org.eclipse.jdt.core.IMethod">
          <menu
-               id="com.github.okrumnow.visibility.menu1"
+               id="org.github.okrumnow.visibility.menu1"
                label="Change visibility"
                path="group.reorganize">
             <separator
@@ -23,32 +23,32 @@
             </separator>
          </menu>
          <action
-               class="com.github.okrumnow.visibility.popup.actions.MakeMethodPrivateAction"
+               class="org.github.okrumnow.visibility.popup.actions.MakeMethodPrivateAction"
                enablesFor="1"
-               id="com.github.okrumnow.visibility.newAction"
+               id="org.github.okrumnow.visibility.newAction"
                label="Make private"
-               menubarPath="com.github.okrumnow.visibility.menu1/group1">
+               menubarPath="org.github.okrumnow.visibility.menu1/group1">
          </action>
          <action
-               class="com.github.okrumnow.visibility.popup.actions.MakeMethodProtectedAction"
+               class="org.github.okrumnow.visibility.popup.actions.MakeMethodProtectedAction"
                enablesFor="1"
-               id="com.github.okrumnow.visibility.newAction"
+               id="org.github.okrumnow.visibility.newAction"
                label="Make protected"
-               menubarPath="com.github.okrumnow.visibility.menu1/group1">
+               menubarPath="org.github.okrumnow.visibility.menu1/group1">
          </action>
          <action
-               class="com.github.okrumnow.visibility.popup.actions.MakeMethodPublicAction"
+               class="org.github.okrumnow.visibility.popup.actions.MakeMethodPublicAction"
                enablesFor="1"
-               id="com.github.okrumnow.visibility.newAction"
+               id="org.github.okrumnow.visibility.newAction"
                label="Make public"
-               menubarPath="com.github.okrumnow.visibility.menu1/group1">
+               menubarPath="org.github.okrumnow.visibility.menu1/group1">
          </action>
          <action
-               class="com.github.okrumnow.visibility.popup.actions.MakeMethodDefaultAction"
+               class="org.github.okrumnow.visibility.popup.actions.MakeMethodDefaultAction"
                enablesFor="1"
-               id="com.github.okrumnow.visibility.newAction"
+               id="org.github.okrumnow.visibility.newAction"
                label="Make (default)"
-               menubarPath="com.github.okrumnow.visibility.menu1/group1">
+               menubarPath="org.github.okrumnow.visibility.menu1/group1">
          </action>
       </objectContribution>
    </extension>

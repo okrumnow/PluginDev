@@ -1,4 +1,4 @@
-package com.github.okrumnow.visibility.popup.actions;
+package org.github.okrumnow.visibility.popup.actions;
 
 import org.eclipse.jdt.core.IBuffer;
 import org.eclipse.jdt.core.ICompilationUnit;

@@ -12,3 +12,4 @@ Require-Bundle: org.eclipse.jdt.ui,
  org.eclipse.ui,
  org.eclipse.core.resources
 Import-Package: org.eclipse.jdt.core.dom
+Bundle-Vendor: Olaf Krumnow
